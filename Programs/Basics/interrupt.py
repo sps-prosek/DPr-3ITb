@@ -3,7 +3,7 @@ from time import ticks_ms
 
 btnPressed = False
 lastBtnPress = ticks_ms()
-btn = Pin(2, Pin.IN, Pin.PULL_UP)
+btn = Pin(2, Pin.IN)
 n = 0
 
 def callback(pin):
