@@ -1,0 +1,10 @@
+{
+    "sensor name": "RPI_PICO_1234",
+    "cycles": 5,
+    "file name": "data.txt",
+    "mean": {
+        "samples": 5,
+        "period ms": 500,
+        "preiod s": 0.5
+    }
+}
