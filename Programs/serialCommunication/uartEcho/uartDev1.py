@@ -6,7 +6,7 @@ uart.init(bits=8, parity=0, stop=1)
 
 while True:
     print("sending...")
-    uart.write("t")
+    uart.write(b"t")
     confirmed = False
     print("waiting for response ")
     while not confirmed:
