@@ -8,5 +8,5 @@ while True:
     if uart.any():
         data = uart.read()
         if data == b"t":
-            uart.write("r")
+            uart.write(b"r")
     time.sleep(1)
