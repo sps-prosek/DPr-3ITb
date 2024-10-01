@@ -1,7 +1,4 @@
 
 .DS_Store
-.picowgo
-.vscode/
-.micropico
 Programs/Tests
 Programs/serialCommunication/uartFileShare
