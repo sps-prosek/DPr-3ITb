@@ -1,5 +1,4 @@
 from machine import Pin
-from utime import sleep
 
 btnPin = Pin(20, Pin.IN)
 lastBtnState = btnPin.value()
