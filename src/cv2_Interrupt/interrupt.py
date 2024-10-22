@@ -3,10 +3,11 @@ from utime import sleep, ticks_ms
 
 
 class InterruptButton:
-    def __init__(self, pin):
+    def __init__(self, pin, func):
         self.pin = Pin(pin, Pin.IN)
         self.btnPressed = False
         self.lastBtnPressTime = 0
+        self.func = func
         self.pin.irq(trigger=Pin.IRQ_FALLING, handler=self.callback, hard=True)
 
     def callback(self, pin):
@@ -14,16 +15,35 @@ class InterruptButton:
             self.btnPressed = True
             self.lastBtnPressTime = ticks_ms()
 
-    def isPressed(self):
-        return self.btnPressed
+    def loop(self):
+        if self.btnPressed:
+            self.func()
+            self.btnPressed = False
 
-    def reset(self):
-        self.btnPressed = False
+
+def func20():
+    global counter
+    counter[0] += 1
+    print("Counter value: ", counter)
 
 
-btn20 = InterruptButton(20)
-btn21 = InterruptButton(21)
-btn22 = InterruptButton(22)
+def func21():
+    global counter
+    counter[1] += 1
+    print("Counter value: ", counter)
+
+
+def func22():
+    global counter
+    counter[2] += 1
+    print("Counter value: ", counter)
+
+
+btns_array = [
+    InterruptButton(20, func20),
+    InterruptButton(21, func21),
+    InterruptButton(22, func22),
+]
 
 counter = [0, 0, 0]
 
@@ -32,18 +52,8 @@ print("Press Ctrl+C to stop.")
 print("Counter value: ", counter)
 while True:
     try:
-        if btn20.isPressed():
-            counter[0] += 1
-            btn20.reset()
-            print("Counter value: ", counter)
-        if btn21.isPressed():
-            counter[1] += 1
-            btn21.reset()
-            print("Counter value: ", counter)
-        if btn22.isPressed():
-            counter[2] += 1
-            btn22.reset()
-            print("Counter value: ", counter)
+        for btn in btns_array:
+            btn.loop()
     except KeyboardInterrupt:
         break
 print("Finished.")
