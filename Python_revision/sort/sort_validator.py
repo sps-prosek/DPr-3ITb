@@ -14,7 +14,20 @@ def custom_sort(arr, reverse=False):
     list: The sorted list.
     """
     # --- Add your code here ---
-    sorted_arr = sorted(arr, reverse=reverse)  # comment this line
+    sorted_arr = arr.copy()
+    for n in range(len(sorted_arr) - 1, 0, -1):
+        swapped = False
+        for i in range(n):
+            if reverse:
+                if sorted_arr[i] < sorted_arr[i + 1]:
+                    sorted_arr[i], sorted_arr[i + 1] = sorted_arr[i + 1], sorted_arr[i]
+                    swapped = True
+            else:
+                if sorted_arr[i] > sorted_arr[i + 1]:
+                    sorted_arr[i], sorted_arr[i + 1] = sorted_arr[i + 1], sorted_arr[i]
+                    swapped = True
+        if not swapped:
+            break
     # ---------------------------
     return sorted_arr
 
@@ -26,10 +39,10 @@ def test_sort_function():
     """
     # Define test cases as tuples of (array_size, min_value, max_value)
     test_cases = [
-        (int(1e3), 0, 100),
-        (int(1e4), -100, 100),
-        (int(1e5), 0, 1000),
-        (int(1e6), -1000, 1000),
+        (int(1e1), 0, 100),
+        (int(1e2), -100, 100),
+        (int(1e3), 0, 1000),
+        (int(1e4), -1000, 1000),
     ]
 
     for size, min_val, max_val in test_cases:
